@@ -439,3 +439,4 @@ How many times was sindresorhus mentioned in the talk?
 - Email: hello@ecosyste.ms
 - GitHub: https://github.com/ecosyste-ms
 - Mastodon: https://mastodon.social/@ecosystems
+- Slides: https://github.com/andrew/state-of-oss-funding
