@@ -1,5 +1,66 @@
 #!/usr/bin/env node
 
+/**
+ * Markdown Slide Generator
+ * 
+ * This script converts markdown files into HTML slideshows with ecosyste.ms branding.
+ * 
+ * ## Markdown Formatting Guide
+ * 
+ * ### Slide Breaks:
+ * - `<hr>` or `---` creates a new slide
+ * - `#` headers create title slides with large centered text
+ * - `##` headers create section slides
+ * 
+ * ### Content Types:
+ * - `### Subtitle` - Creates a subtitle within a slide
+ * - `- List item` - Creates styled list items with hover effects
+ * - `key: value` - Creates stat cards for numeric data (detects patterns like "Packages: 123")
+ * - `![alt text](image.png)` - Adds images with automatic sizing
+ * - ``` code blocks ``` - Formatted code with syntax highlighting
+ * - Regular text becomes paragraphs
+ * 
+ * ### Example Markdown:
+ * ```markdown
+ * # Main Title
+ * This is the intro text for the title slide.
+ * 
+ * <hr>
+ * 
+ * ## Section Title
+ * - First point
+ * - Second point
+ * - Third point
+ * 
+ * <hr>
+ * 
+ * ## Statistics
+ * Total packages: 9,080,774
+ * Active users: 150,926
+ * Success rate: 92.5%
+ * 
+ * <hr>
+ * 
+ * ## Code Example
+ * ```javascript
+ * console.log("Hello World");
+ * ```
+ * 
+ * <hr>
+ * 
+ * ## Chart Example
+ * Here's our growth over time:
+ * 
+ * ![Growth Chart](chart.png)
+ * ```
+ * 
+ * ### Special Features:
+ * - Links in lists are automatically highlighted
+ * - Stat cards get special styling on alternating slides
+ * - Images named treemap*.svg get special treatment (no rounded corners)
+ * - Pop Quiz Warning slides get red background with pulsing animation
+ */
+
 const fs = require('fs');
 const path = require('path');
 

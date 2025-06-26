@@ -1,92 +1,79 @@
-# OSS Funding Data Slideshow
+# The State of OSS Funding Data
 
-This project automatically generates an HTML slideshow from a markdown file.
+**Insights from ecosyste.ms**
+
+A presentation by Andrew Nesbitt for CHAOSScon North America 2025, Denver, CO.
+
+## Abstract
+
+This talk explores the current state of funding in open source software, analyzing data from over 11 million packages across various ecosystems. Using the ecosyste.ms dataset, we examine:
+
+- How many packages have funding links
+- Which funding platforms are most popular
+- The concentration of funding in critical packages
+- Who maintains critical infrastructure
+- The relationship between funding success and package maintenance
+
+## Key Findings
+
+- Only **3.26%** of all packages have funding links
+- **72.8%** of critical packages have no obvious way to financially support them
+- **35%** of critical packages are maintained by individuals, not organizations
+- Well-funded maintainers tend to maintain more critical packages, creating a concentration effect
+- GitHub Sponsors and Open Collective dominate the funding platform landscape
+
+## Data Sources
+
+All data presented comes from the [ecosyste.ms](https://ecosyste.ms) project, which tracks:
+- 11.4M packages
+- 262M repositories  
+- 1.7M maintainers
+- 22B dependencies
+
+## Links
+
+- **Slides**: https://github.com/andrew/state-of-oss-funding
+- **ecosyste.ms**: https://ecosyste.ms
+- **Funding data**: https://packages.ecosyste.ms/funding
+- **Critical packages**: https://packages.ecosyste.ms/critical
 
 ## Credits
 
-- **Slide generator code**: Written by [Claude Code](https://claude.ai/code)
-- **Slide content**: Hand-written by Andrew Nesbitt
+- **Talk content**: Hand-written by Andrew Nesbitt
+- **Slide generator**: Written by [Claude Code](https://claude.ai/code)
 
-## Usage
+---
 
-### One-time generation:
+## Slide Generator
+
+This repository includes an HTML slide generator that creates presentations from markdown files.
+
+### Running the slides
+
+To view the slides locally:
+
 ```bash
-node generate-slides.js
-```
+# Install dependencies
+npm install
 
-### Watch mode (auto-regenerates on file changes):
-```bash
+# Generate and watch for changes
 npm start
-# or
-npm run watch
-# or
-node generate-slides.js --watch
 ```
 
-## How it works
+Then open `index.html` in your browser.
 
-1. Edit `text.md` with your presentation content
-2. The script watches for changes and regenerates `index.html`
-3. Open `index.html` in your browser
-4. The browser will auto-reload when slides are updated
+### Usage
 
-## Markdown formatting
+- Edit `text.md` to modify slide content
+- The generator watches for changes and auto-reloads
+- See formatting guide in `generate-slides.js` comments
 
-The generator recognizes these patterns:
-
-### Slide breaks:
-- `<hr>` or `---` creates a new slide
-- `#` headers create title slides
-- `##` headers create section slides
-
-### Content types:
-- `### Subtitle` - Creates a subtitle within a slide
-- `- List item` - Creates styled list items
-- `key: value` - Creates stat cards (for numeric data)
-- `![alt text](image.png)` - Adds images
-- Regular text becomes paragraphs
-
-### Example:
-```markdown
-# Main Title
-This is the intro text for the title slide.
-
-<hr>
-
-## Section Title
-- First point
-- Second point
-- Third point
-
-<hr>
-
-## Statistics
-Total packages: 9,080,774
-Active users: 150,926
-Success rate: 92.5%
-
-<hr>
-
-## Chart Example
-Here's our growth over time:
-
-![Growth Chart](chart.png)
-```
-
-## Navigation
+### Navigation
 
 - **Arrow keys** (↑↓) or **Page Up/Down** to navigate
 - **Space** for next slide
+- **F** to toggle fullscreen
 - **Home/End** to jump to first/last slide
-- **F** to toggle fullscreen mode
-- **Escape** to exit fullscreen
-
-## Features
-
-- Auto-reload when markdown changes
-- Responsive design
-- ecosyste.ms branded styling
-- Smooth scrolling between slides
 
 ## License
 
