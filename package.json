@@ -1,0 +1,14 @@
+{
+  "name": "ossumitt-slides",
+  "version": "1.0.0",
+  "description": "Auto-generating slideshow from markdown",
+  "main": "generate-slides.js",
+  "scripts": {
+    "generate": "node generate-slides.js",
+    "watch": "node generate-slides.js --watch",
+    "start": "node generate-slides.js --watch"
+  },
+  "keywords": ["slides", "markdown", "presentation"],
+  "author": "",
+  "license": "MIT"
+}

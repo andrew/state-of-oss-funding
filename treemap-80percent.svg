@@ -1,0 +1,10 @@
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Main rectangle (100% - all packages) -->
+  <rect x="0" y="0" width="800" height="600" fill="#FFFFFF" stroke="#1D1D28" stroke-width="0.5"/>
+  
+  <!-- 80% rectangle (positioned to show it represents 80% of the area) -->
+  <!-- 80% of 800x600 = 640x480 area, but positioned as a square for visual clarity -->
+  <!-- Square root of (0.8 * 800 * 600) = ~692.8, so approximately 693x693, but that's too big -->
+  <!-- Using 715x536 to represent 80% of the area -->
+  <rect x="0" y="0" width="715" height="536" fill="#FF807D" stroke="#1D1D28" stroke-width="0.5"/>
+</svg>

@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The State of OSS Funding Data - ecosyste.ms</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #FFFFFF;
+            color: #1D1D28;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            font-weight: 400;
+        }
+        
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem 2rem;
+            position: relative;
+            background: #FFFFFF;
+        }
+        
+        .slide:nth-child(even) {
+            background: #F5F5FF;
+        }
+        
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #7878EF;
+            line-height: 1.1;
+        }
+        
+        h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #1D1D28;
+        }
+        
+        h3 {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #5C5CCF;
+        }
+        
+        .content {
+            max-width: 1000px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+            justify-items: center;
+        }
+        
+        .stat-card {
+            background: #F5F5FF;
+            border: 2px solid #DCDCE0;
+            border-radius: 24px;
+            padding: 2rem 1.5rem;
+            transition: all 0.3s ease;
+            min-width: 250px;
+            max-width: 300px;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 32px rgba(120, 120, 239, 0.15);
+            border-color: #BBBBFF;
+        }
+        
+        .slide:nth-child(odd) .stat-card {
+            background: #FFFFFF;
+        }
+        
+        .big-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #45E56E;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .percentage {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #FF807D;
+        }
+        
+        ul {
+            list-style: none;
+            text-align: left;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        li {
+            margin: 0.8rem 0;
+            padding: 0.8rem 0.8rem 0.8rem 2.5rem;
+            position: relative;
+            font-size: 1.2rem;
+            line-height: 1.5;
+            background: #F5F5FF;
+            border-radius: 16px;
+            transition: all 0.2s ease;
+        }
+        
+        li:hover {
+            background: #DCDCE0;
+            transform: translateX(8px);
+        }
+        
+        .slide:nth-child(even) li {
+            background: #FFFFFF;
+        }
+        
+        .slide:nth-child(even) li:hover {
+            background: #F5F5FF;
+        }
+        
+        li:before {
+            content: "→";
+            position: absolute;
+            left: 0.8rem;
+            color: #45E56E;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+        
+        .highlight {
+            color: #7878EF;
+            font-weight: 700;
+        }
+        
+        .slide-number {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            color: #4C4C61;
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+        
+        .slide-logo {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            width: 48px;
+            height: 48px;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        .slide-logo:hover {
+            opacity: 1;
+        }
+        
+        .intro-slide p {
+            font-size: 1.8rem;
+            line-height: 1.8;
+            color: #4C4C61;
+            max-width: 900px;
+            margin: 0 auto;
+            font-weight: 400;
+        }
+        
+        p {
+            font-size: 1.6rem;
+            line-height: 1.8;
+            margin: 1.5rem 0;
+        }
+        
+        .top-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .top-item {
+            background: #F5F5FF;
+            border: 2px solid #BBBBFF;
+            border-radius: 24px;
+            padding: 1rem 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+        
+        .top-item:hover {
+            background: #BBBBFF;
+            transform: scale(1.02);
+        }
+        
+        .domain {
+            color: #7878EF;
+            text-decoration: none;
+            font-weight: 700;
+        }
+        
+        .domain:hover {
+            text-decoration: underline;
+            color: #5C5CCF;
+        }
+        
+        .nav-hint {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #4C4C61;
+            font-size: 0.9rem;
+            animation: bounce 2s infinite;
+            background: #F5F5FF;
+            padding: 0.5rem 1.5rem;
+            border-radius: 24px;
+            border: 1px solid #DCDCE0;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+        
+        .divider {
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #7878EF, #45E56E);
+            margin: 3rem auto;
+            border-radius: 2px;
+        }
+        
+        .stat-card span:not(.big-number):not(.percentage) {
+            color: #4C4C61;
+            font-weight: 400;
+            font-size: 1.3rem;
+        }
+        
+        .top-item span strong {
+            color: #1D1D28;
+            font-weight: 900;
+        }
+        
+        a {
+            transition: all 0.2s ease;
+        }
+        
+        .reload-indicator {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: #45E56E;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 24px;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .reload-indicator.show {
+            opacity: 1;
+        }
+        
+        .slide-image {
+            max-width: 90%;
+            max-height: 60vh;
+            margin: 2rem auto;
+            display: block;
+            border-radius: 16px;
+        }
+        
+        .slide-image[src="treemap.svg"],
+        .slide-image[src="treemap-80percent.svg"] {
+            border-radius: 0;
+        }
+        
+        .code-block {
+            background: #1D1D28;
+            color: #F5F5FF;
+            padding: 2rem;
+            border-radius: 16px;
+            overflow-x: auto;
+            margin: 2rem auto;
+            max-width: 90%;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            box-shadow: 0 8px 32px rgba(29, 29, 40, 0.15);
+            border: 2px solid #7878EF;
+            text-align: left;
+        }
+        
+        .code-block code {
+            color: #F5F5FF;
+            background: none;
+            padding: 0;
+            font-size: inherit;
+            text-align: left;
+            white-space: pre;
+        }
+        
+        /* Pop Quiz Warning Slide Styles */
+        .pop-quiz-warning {
+            background: #FF807D !important;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pop-quiz-warning .content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .pop-quiz-warning h1 {
+            color: #FFFFFF;
+            font-size: clamp(3rem, 7vw, 5rem);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .pop-quiz-warning .divider {
+            background: linear-gradient(90deg, #FFFFFF, #FFE0DF);
+        }
+        
+        .pop-quiz-warning p {
+            color: #FFFFFF;
+            font-size: 2rem;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+        
+        .pop-quiz-warning .slide-number {
+            color: #FFFFFF;
+        }
+        
+        .pop-quiz-warning .slide-logo {
+            filter: brightness(0) invert(1);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        @media (max-width: 768px) {
+            .slide {
+                padding: 2rem 1rem;
+            }
+            
+            .stat-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .top-list {
+                grid-template-columns: 1fr;
+            }
+            
+            li {
+                padding-left: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>The State of OSS Funding data: Insights from ecosyste.ms</h1>
+            <div class="divider"></div>
+            <p>CHAOSScon North America 2025</p>
+            <p>Denver, CO</p>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">1/56</span>
+    </div>
+
+    <div class="slide intro-slide pop-quiz-warning">
+        <div class="content">
+            <h1>Pop Quiz Warning</h1>
+            <div class="divider"></div>
+            <p>There will be a pop quiz at the end of this talk, pay close attention!</p>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">2/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Andrew Nesbitt</h1>
+            <img src="andrew.jpeg" alt="Andrew Nesbitt" class="slide-image">
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">3/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>I have poodles</h1>
+            <img src="dogs.gif" alt="Dogs" class="slide-image">
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">4/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>ecosyste.ms</h1>
+            <img src="screenshot.png" alt="screenshot" class="slide-image">
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">5/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>ecosyste.ms stats</h1>
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <span class="big-number">11.4M</span>
+                    <span>Packages</span>
+                </div>
+                <div class="stat-card">
+                    <span class="big-number">132M</span>
+                    <span>Versions</span>
+                </div>
+                <div class="stat-card">
+                    <span class="big-number">2.0T</span>
+                    <span>Downloads</span>
+                </div>
+                <div class="stat-card">
+                    <span class="big-number">1.7M</span>
+                    <span>Maintainers</span>
+                </div>
+                <div class="stat-card">
+                    <span class="big-number">262M</span>
+                    <span>Repositories</span>
+                </div>
+                <div class="stat-card">
+                    <span class="big-number">22B</span>
+                    <span>Dependencies</span>
+                </div>
+            </div>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">6/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Funding in Open Source</h1>
+            <div class="divider"></div>
+            <p>What data can we see in the ecosyste.ms dataset about funding in open source?</p>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">7/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Different kinds of funding metadata</h1>
+            <ul>
+                <li>Funding links in package metadata</li>
+                <li>Funding links in maintainer/org profiles</li>
+                <li>Funding.yml files in repositories</li>
+            </ul>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">8/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>FUNDING.yml</h1>
+            <pre class="code-block"><code>github: andrew
+ko_fi: andrewnez
+polar: andrew
+buy_me_a_coffee: andrewnez</code></pre>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">9/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Funding metadata in Package Managers</h1>
+            <pre class="code-block"><code>- Rubygems: [&quot;funding_uri&quot;]
+- npm: [&quot;funding&quot;]
+- PyPI: [&quot;funding&quot;]
+- Packagist: [&quot;info&quot;][&quot;project_urls&quot;][&quot;Funding&quot;]</code></pre>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">10/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Funding metadata in Maintainer Profiles</h1>
+            <img src="github.png" alt="Maintainer profile" class="slide-image">
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">11/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Funding Links</h1>
+            <ul>
+                <li>https://github.com/sponsors/andrew</li>
+                <li>https://ko-fi.com/andrewnez</li>
+                <li>https://polar.sh/andrew</li>
+                <li>https://buymeacoffee.com/andrewnez</li>
+                <li>https://paypal.me/andrewnez</li>
+                <li>https://sindresorhus.com/donate</li>
+                <li>https://tidelift.com/funding/github/npm/gzip-size</li>
+                <li>https://donate.pypi.org</li>
+                <li>https://www.patreon.com/garbagebrainuniversity</li>
+            </ul>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">12/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Lets go through some data!</h1>
+            <div class="divider"></div>
+            <p>Here's something I prepared earlier...</p>
+            <p>I've been mining the ecosyste.ms datasets for funding links in open source packages.</p>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">13/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Funding links in all packages</h1>
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <span class="big-number">376,892</span>
+                    <span>Packages</span>
+                </div>
+                <div class="stat-card">
+                    <span class="big-number">3.26%</span>
+                    <span>Percent</span>
+                </div>
+            </div>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">14/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Most Popular Funding Domains</h1>
+            <ul>
+                <li><span class="highlight"><span class="highlight">github.com</span> </span> — 315,034 funded packages (83.59%)</li>
+                <li><span class="highlight"><span class="highlight">opencollective.com</span> </span> — 49,467 funded packages (13.12%)</li>
+                <li><span class="highlight"><span class="highlight">patreon.com</span> </span> — 26,929 funded packages (7.15%)</li>
+                <li><span class="highlight"><span class="highlight">ko-fi.com</span> </span> — 17,674 funded packages (4.69%)</li>
+                <li><span class="highlight"><span class="highlight">paypal.me</span> </span> — 15,170 funded packages (4.03%)</li>
+                <li><span class="highlight"><span class="highlight">buymeacoffee.com</span> </span> — 11,497 funded packages (3.05%)</li>
+                <li><span class="highlight"><span class="highlight">tidelift.com</span> </span> — 10,686 funded packages (2.84%)</li>
+                <li><span class="highlight"><span class="highlight">liberapay.com</span> </span> — 6,353 funded packages (1.69%)</li>
+                <li><span class="highlight"><span class="highlight">paypal.com</span> </span> — 3,505 funded packages (0.93%)</li>
+                <li><span class="highlight"><span class="highlight">donate.pypi.org</span> </span> — 3,179 funded packages (0.84%)</li>
+                <li><span class="highlight"><span class="highlight">sindresorhus.com</span> </span> — 2,442 funded packages (0.65%)</li>
+            </ul>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">15/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Top Ecosystems by Number of Funded Packages</h1>
+            <ul>
+                <li><span class="highlight"><span class="highlight">npmjs.org</span> </span> — 150,926 funded packages (3.0%)</li>
+                <li><span class="highlight"><span class="highlight">pypi.org</span> </span> — 49,172 funded packages (7.07%)</li>
+                <li><span class="highlight"><span class="highlight">proxy.golang.org</span> </span> — 40,169 funded packages (2.11%)</li>
+                <li><span class="highlight"><span class="highlight">packagist.org</span> </span> — 29,776 funded packages (6.49%)</li>
+                <li><span class="highlight"><span class="highlight">repo1.maven.org</span> </span> — 25,560 funded packages (4.88%)</li>
+                <li><span class="highlight"><span class="highlight">nuget.org</span> </span> — 18,964 funded packages (2.61%)</li>
+                <li><span class="highlight"><span class="highlight">crates.io</span> </span> — 18,899 funded packages (9.74%)</li>
+                <li><span class="highlight"><span class="highlight">rubygems.org</span> </span> — 7,068 funded packages (3.56%)</li>
+                <li><span class="highlight"><span class="highlight">bower.io</span> </span> — 3,143 funded packages (4.48%)</li>
+                <li><span class="highlight"><span class="highlight">github actions</span> </span> — 2,946 funded packages (9.22%)</li>
+                <li><span class="highlight"><span class="highlight">pub.dev</span> </span> — 2,803 funded packages (4.24%)</li>
+            </ul>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">16/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Critical Packages</h1>
+            <div class="divider"></div>
+            <p>The critical packages are the top <b>~10,000</b> most used packages.</p>
+            <p>-</p>
+            <p><b>"Most Used"</b> a combination of the number of packages, repositories that depend on them and the number of downloads.</p>
+            <p>-</p>
+            <p>This small group of packages represent over <b>~80%</b> of all usage.</p>
+            <p>-</p>
+            <p>That means only <b>0.0865%</b> of all packages are critical.</p>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">17/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>1% of the 1%</h1>
+            <img src="treemap.svg" alt="1% of the 1%" class="slide-image">
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">18/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>80% of all usage</h1>
+            <img src="treemap-80percent.svg" alt="80% of all usage" class="slide-image">
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">19/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Critical Package Funding Links</h1>
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <span class="big-number">2,661</span>
+                    <span>Packages</span>
+                </div>
+                <div class="stat-card">
+                    <span class="big-number">27.2%</span>
+                    <span>Percent</span>
+                </div>
+            </div>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">20/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Average Funding Links per Critical Packages</h1>
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <span class="big-number">~2</span>
+                    <span>Links</span>
+                </div>
+            </div>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">21/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Critical Packages with more than One Funding Link</h1>
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <span class="big-number">1,411</span>
+                    <span>Packages</span>
+                </div>
+            </div>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">22/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Funding Domains in Critical Packages</h1>
+            <ul>
+                <li><span class="highlight"><span class="highlight">github.com</span> </span> — 2,288 funded packages (86.0%)</li>
+                <li><span class="highlight"><span class="highlight">opencollective.com</span> </span> — 851 funded packages (32.0%)</li>
+                <li><span class="highlight"><span class="highlight">tidelift.com</span> </span> — 571 funded packages (21.5%)</li>
+                <li><span class="highlight"><span class="highlight">sindresorhus.com</span> </span> — 182 funded packages (6.8%)</li>
+                <li><span class="highlight"><span class="highlight">patreon.com</span> </span> — 129 funded packages (4.8%)</li>
+                <li><span class="highlight"><span class="highlight">symfony.com</span> </span> — 98 funded packages (3.7%)</li>
+                <li><span class="highlight"><span class="highlight">buymeacoffee.com</span> </span> — 91 funded packages (3.4%)</li>
+                <li><span class="highlight"><span class="highlight">thanks.dev</span> </span> — 61 funded packages (2.3%)</li>
+                <li><span class="highlight"><span class="highlight">ko-fi.com</span> </span> — 61 funded packages (2.3%)</li>
+                <li><span class="highlight"><span class="highlight">liberapay.com</span> </span> — 50 funded packages (1.9%)</li>
+                <li><span class="highlight"><span class="highlight">paypal.me</span> </span> — 45 funded packages (1.7%)</li>
+            </ul>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">23/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Ecosystems by Funded Critical Packages</h1>
+            <ul>
+                <li><span class="highlight"><span class="highlight">npmjs.org</span> </span> — 1,252 of 2,289 critical packages have funding (54.7%)</li>
+                <li><span class="highlight"><span class="highlight">packagist.org</span> </span> — 303 of 548 critical packages have funding (55.29%)</li>
+                <li><span class="highlight"><span class="highlight">crates.io</span> </span> — 197 of 813 critical packages have funding (24.23%)</li>
+                <li><span class="highlight"><span class="highlight">pypi.org</span> </span> — 196 of 525 critical packages have funding (37.33%)</li>
+                <li><span class="highlight"><span class="highlight">rubygems.org</span> </span> — 183 of 974 critical packages have funding (18.79%)</li>
+                <li><span class="highlight"><span class="highlight">conda-forge.org</span> </span> — 102 of 390 critical packages have funding (26.15%)</li>
+                <li><span class="highlight"><span class="highlight">clojars.org</span> </span> — 81 of 280 critical packages have funding (28.93%)</li>
+                <li><span class="highlight"><span class="highlight">repo1.maven.org</span> </span> — 79 of 704 critical packages have funding (11.22%)</li>
+                <li><span class="highlight"><span class="highlight">proxy.golang.org</span> </span> — 68 of 645 critical packages have funding (10.54%)</li>
+                <li><span class="highlight"><span class="highlight">swiftpackageindex.com</span> </span> — 38 of 97 critical packages have funding (39.18%)</li>
+                <li><span class="highlight"><span class="highlight">juliahub.com</span> </span> — 19 of 173 critical packages have funding (10.98%)</li>
+            </ul>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">24/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Let's go deeper into data</h1>
+            <div class="divider"></div>
+            <p>What data is available for some of these funding platforms.</p>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">25/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Open Collective</h1>
+            <img src="opencollective.png" alt="Open Collective" class="slide-image">
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">26/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Collectives linked in Critical Packages</h1>
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <span class="big-number">150</span>
+                    <span>Collectives</span>
+                </div>
+            </div>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">27/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Average Packages from a Collective</h1>
+            <ul>
+                <li>Mean: 5.78</li>
+                <li>Median: 1.0</li>
+                <li>Mode: 1</li>
+                <li>Min: 1</li>
+                <li>Max: 182</li>
+                <li>Std-dev: 19</li>
+                <li>90th percentile: 8</li>
+                <li>95th percentile: 20</li>
+            </ul>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">28/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Donation stats in Critical Collectives</h1>
+            <ul>
+                <li>Total donations: $11,070,063</li>
+                <li>Total expensed: $9,393,780</li>
+                <li>Current balance: $2,401,580</li>
+                <li>Total transactions: 221,238</li>
+                <li>Average transaction: $90</li>
+            </ul>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">29/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Collective Donations</h1>
+            <ul>
+                <li>Mean: $82,612.41</li>
+                <li>Median: $12,889.20</li>
+                <li>Mode: $42,746.16</li>
+                <li>Min: $0.00</li>
+                <li>Max: $1,665,827.27</li>
+                <li>Std-dev: $217,800.24</li>
+                <li>90th percentile: $177,971.63</li>
+                <li>95th percentile: $343,736.23</li>
+            </ul>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">30/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Top Critical Collectives</h1>
+            <ul>
+                <li>webpack: $1,665,827.27</li>
+                <li>babel: $1,383,653.29</li>
+                <li>eslint: $922,377.59</li>
+                <li>vuejs: $728,887.79</li>
+                <li>generator-jhipster: $420,678.85</li>
+                <li>mui-org: $394,203.27</li>
+                <li>homebrew: $343,736.23</li>
+                <li>curl: $341,781.62</li>
+                <li>numpy: $297,794.59</li>
+                <li>date-fns: $273,985.56</li>
+            </ul>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">31/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Critical Collectives with Zero Donations</h1>
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <span class="big-number">2</span>
+                    <span>Collectives</span>
+                </div>
+            </div>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">32/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>GitHub Sponsors</h1>
+            <img src="github-sponsors.png" alt="GitHub Sponsors" class="slide-image">
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">33/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>GitHub Sponsors linked from Critical Packages</h1>
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <span class="big-number">667</span>
+                    <span>Sponsored</span>
+                </div>
+            </div>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">34/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>GitHub Sponsor Averages</h1>
+            <ul>
+                <li>Mean: 3.7</li>
+                <li>Median: 1</li>
+                <li>Max: 190</li>
+                <li>Std-dev: 11.9</li>
+                <li>95% have ≤ 10 packages</li>
+            </ul>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">35/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>GitHub Sponsor Stats</h1>
+            <ul>
+                <li>number of accounts with active sponsors: 580</li>
+                <li>number of the accounts with any sponsors: 607</li>
+                <li>number of accounts with no sponsors: 60</li>
+                <li>number of accounts with no active sponsors: 87</li>
+            </ul>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">36/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Organisations vs User GitHub Sponsor Accounts</h1>
+            <ul>
+                <li>Organisations: 122 (18%)</li>
+                <li>Users: 519 (78%)</li>
+                <li>Not on GitHub Sponsors: 19 (3%)</li>
+            </ul>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">37/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>GitHub Accounts with Most Active Sponsors</h1>
+            <ul>
+                <li>homebrew - 791 active sponsors</li>
+                <li>antfu - 213 active sponsors</li>
+                <li>sebastianbergmann - 209 active sponsors</li>
+                <li>sindresorhus - 207 active sponsors</li>
+                <li>python - 197 active sponsors</li>
+                <li>yyx990803 - 191 active sponsors</li>
+                <li>tiangolo - 157 active sponsors</li>
+                <li>dtolnay - 156 active sponsors</li>
+                <li>django - 155 active sponsors</li>
+                <li>tokio-rs - 138 active sponsors</li>
+            </ul>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">38/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>GitHub Accounts with Most Sponsors over all time</h1>
+            <ul>
+                <li>homebrew - 2,787 total sponsors</li>
+                <li>sindresorhus - 1,792 total sponsors</li>
+                <li>livewire - 1,691 total sponsors</li>
+                <li>yyx990803 - 1,252 total sponsors</li>
+                <li>antfu - 975 total sponsors</li>
+                <li>python - 865 total sponsors</li>
+                <li>babel - 834 total sponsors</li>
+                <li>tiangolo - 769 total sponsors</li>
+                <li>sebastianbergmann - 615 total sponsors</li>
+                <li>django - 567 total sponsors</li>
+            </ul>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">39/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Sponsor Breakdown</h1>
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <span class="big-number">21,942</span>
+                    <span>Total</span>
+                </div>
+                <div class="stat-card">
+                    <span class="big-number">20,455</span>
+                    <span>Users</span>
+                </div>
+                <div class="stat-card">
+                    <span class="big-number">1,401</span>
+                    <span>Organization</span>
+                </div>
+            </div>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">40/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Let's look at Owners</h1>
+            <div class="divider"></div>
+            <p>Who owns these packages? Who are the maintainers? Who are the organisations?</p>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">41/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Critical Package Owners</h1>
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <span class="big-number">9,780</span>
+                    <span>Packages</span>
+                </div>
+                <div class="stat-card">
+                    <span class="big-number">6,390</span>
+                    <span>Repositories</span>
+                </div>
+                <div class="stat-card">
+                    <span class="big-number">2,812</span>
+                    <span>Owners</span>
+                </div>
+            </div>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">42/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Breakdown of Owners of critical packages</h1>
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <span class="big-number">65%</span>
+                    <span>Organisations</span>
+                </div>
+                <div class="stat-card">
+                    <span class="big-number">35%</span>
+                    <span>Users</span>
+                </div>
+            </div>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">43/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Unique Owners of critical packages</h1>
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <span class="big-number">1,312</span>
+                    <span>Organisations</span>
+                </div>
+                <div class="stat-card">
+                    <span class="big-number">1,500</span>
+                    <span>Users</span>
+                </div>
+            </div>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">44/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Top Organisation Owners</h1>
+            <ul>
+                <li>aws - 287 packages (3.5%)</li>
+                <li>babel - 139 packages (1.7%)</li>
+                <li>symfony - 98 packages (1.2%)</li>
+                <li>spring-projects - 91 packages (1.11%)</li>
+                <li>googleapis - 78 packages (0.95%)</li>
+                <li>DefinitelyTyped - 75 packages (0.92%)</li>
+                <li>r-lib - 69 packages (0.84%)</li>
+                <li>google - 62 packages (0.76%)</li>
+                <li>dart-lang - 60 packages (0.73%)</li>
+                <li>smithy-lang - 59 packages (0.72%)</li>
+            </ul>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">45/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Top User Owners</h1>
+            <ul>
+                <li>sindresorhus - 181 packages (2.21%)</li>
+                <li>jonschlinkert - 57 packages (0.7%)</li>
+                <li>ekmett - 44 packages (0.54%)</li>
+                <li>dtolnay - 32 packages (0.39%)</li>
+                <li>ljharb - 32 packages (0.39%)</li>
+                <li>isaacs - 31 packages (0.38%)</li>
+                <li>vincenthz - 28 packages (0.34%)</li>
+                <li>sebastianbergmann - 26 packages (0.32%)</li>
+                <li>snoyberg - 24 packages (0.29%)</li>
+                <li>evanw - 24 packages (0.29%)</li>
+            </ul>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">46/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Unique Owners with Funding Links</h1>
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <span class="big-number">415</span>
+                    <span>Users</span>
+                </div>
+                <div class="stat-card">
+                    <span class="big-number">359</span>
+                    <span>Organisations</span>
+                </div>
+            </div>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">47/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Organisation Owners with Funding Links</h1>
+            <ul>
+                <li>babel - 139 packages (5.26%)</li>
+                <li>symfony - 98 packages (3.71%)</li>
+                <li>jestjs - 49 packages (1.85%)</li>
+                <li>inspect-js - 49 packages (1.85%)</li>
+                <li>es-shims - 30 packages (1.14%)</li>
+                <li>cssnano - 30 packages (1.14%)</li>
+                <li>tokio-rs - 28 packages (1.06%)</li>
+                <li>csstools - 26 packages (0.98%)</li>
+                <li>micromark - 21 packages (0.79%)</li>
+                <li>getsentry - 20 packages (0.76%)</li>
+            </ul>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">48/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>User Owners with Funding Links</h1>
+            <ul>
+                <li>sindresorhus - 181 packages (6.85%)</li>
+                <li>jonschlinkert - 57 packages (2.16%)</li>
+                <li>ljharb - 32 packages (1.21%)</li>
+                <li>dtolnay - 32 packages (1.21%)</li>
+                <li>isaacs - 31 packages (1.17%)</li>
+                <li>sebastianbergmann - 26 packages (0.98%)</li>
+                <li>weavejester - 21 packages (0.79%)</li>
+                <li>mafintosh - 18 packages (0.68%)</li>
+                <li>blakeembrey - 17 packages (0.64%)</li>
+                <li>mathiasbynens - 16 packages (0.61%)</li>
+            </ul>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">49/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>User Owners by "company" field</h1>
+            <ul>
+                <li>brandscale - 61 critical packages (0.62%)</li>
+                <li>google - 60 critical packages (0.61%)</li>
+                <li>groq - 44 critical packages (0.45%)</li>
+                <li>0xf9ba143b95ff6d82 - 32 critical packages (0.33%)</li>
+                <li>herodevs tc39 - 32 critical packages (0.33%)</li>
+                <li>vlt.sh - 31 critical packages (0.32%)</li>
+                <li>coretype - 28 critical packages (0.29%)</li>
+                <li>thephpcc - 26 critical packages (0.27%)</li>
+                <li>fpco - 26 critical packages (0.27%)</li>
+                <li>boolean knot ltd - 21 critical packages (0.21%)</li>
+                <li>holepunchto - 18 critical packages (0.18%)</li>
+            </ul>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">50/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Summary</h1>
+            <ul>
+                <li><b>35% of critical packages</b> are owned by individual maintainers, not organizations</li>
+                <li>Only <b>27.2% of critical packages</b> have any funding links at all</li>
+                <li><b>72.8% of critical packages</b> have no obvious way to financially support them</li>
+                <li>The maintainers with the <b>most</b> funding success have <b>more</b> critical packages</li>
+                <li><b>Concentration effect</b>: Well-funded maintainers can afford to maintain more projects, while unfunded maintainers struggle with even one</li>
+                <li><b>Potential gamification</b>: Some maintainers might strategically break packages into smaller dependencies to increase their critical package count</li>
+            </ul>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">51/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Things that didn't fit in a 15 min talk</h1>
+            <ul>
+                <li>Foundations</li>
+                <li>Grants</li>
+                <li>Contributors</li>
+                <li>Commit data</li>
+                <li>Issue data</li>
+                <li>Dependency linking data</li>
+            </ul>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">52/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Pop Quiz</h1>
+            <div class="divider"></div>
+            <p>How many times was sindresorhus mentioned in the talk?</p>
+            <img src="sindresorhus.png" alt="sindresorhus" class="slide-image">
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">53/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Answer: 7</h1>
+            <ul>
+                <li>Funding Links: - https://sindresorhus.com/donate</li>
+                <li><span class="highlight">Funding domains in all packages: <span class="highlight">sindresorhus.com</span> </span> — 2,442 funded packages (0.65%)</li>
+                <li><span class="highlight">Funding domains in critical packages: - <span class="highlight">sindresorhus.com</span> </span> — 182 funded packages (6.8%)</li>
+                <li>GitHub accounts with most active sponsors:- sindresorhus - 207 active sponsors</li>
+                <li>GitHub accounts with most sponsors all time: - sindresorhus - 1792 total sponsors</li>
+                <li>Top user owners: - sindresorhus - 181 packages (2.21%)</li>
+                <li>User owners with funding links: - sindresorhus - 181 packages (6.85%)</li>
+            </ul>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">54/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>Links</h1>
+            <ul>
+                <li>https://packages.ecosyste.ms</li>
+                <li>https://packages.ecosyste.ms/funding</li>
+                <li>https://packages.ecosyste.ms/critical</li>
+                <li>https://opencollective.ecosyste.ms</li>
+                <li>https://sponsors.ecosyste.ms</li>
+            </ul>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">55/56</span>
+    </div>
+
+    <div class="slide intro-slide">
+        <div class="content">
+            <h1>We won't have time for questions!</h1>
+            <ul>
+                <li>Web: https://ecosyste.ms</li>
+                <li>Email: hello@ecosyste.ms</li>
+                <li>GitHub: https://github.com/ecosyste-ms</li>
+                <li>Mastodon: https://mastodon.social/@ecosystems</li>
+            </ul>
+        </div>
+        <img src="favicon.png" alt="Logo" class="slide-logo">
+        <span class="slide-number">56/56</span>
+    </div>
+
+    <div class="nav-hint">Scroll or use arrow keys to navigate • Press F for fullscreen</div>
+    <div class="reload-indicator">Slides updated!</div>
+
+    <script>
+        // Fullscreen toggle
+        function toggleFullscreen() {
+            const elem = document.documentElement;
+            
+            if (!document.fullscreenElement && 
+                !document.webkitFullscreenElement && 
+                !document.mozFullScreenElement &&
+                !document.msFullscreenElement) {
+                // Enter fullscreen
+                if (elem.requestFullscreen) {
+                    elem.requestFullscreen();
+                } else if (elem.webkitRequestFullscreen) {
+                    elem.webkitRequestFullscreen();
+                } else if (elem.mozRequestFullScreen) {
+                    elem.mozRequestFullScreen();
+                } else if (elem.msRequestFullscreen) {
+                    elem.msRequestFullscreen();
+                }
+            } else {
+                // Exit fullscreen
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const slides = document.querySelectorAll('.slide');
+            const currentSlide = Math.round(window.scrollY / window.innerHeight);
+            
+            if (e.key === 'f' || e.key === 'F') {
+                e.preventDefault();
+                toggleFullscreen();
+            } else if (e.key === 'Escape') {
+                // Escape is handled automatically by browsers for fullscreen
+            } else if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+                e.preventDefault();
+                if (currentSlide < slides.length - 1) {
+                    slides[currentSlide + 1].scrollIntoView({ behavior: 'smooth' });
+                }
+            } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                e.preventDefault();
+                if (currentSlide > 0) {
+                    slides[currentSlide - 1].scrollIntoView({ behavior: 'smooth' });
+                }
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                slides[0].scrollIntoView({ behavior: 'smooth' });
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                slides[slides.length - 1].scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+
+        // Hide nav hint after first interaction
+        let hasInteracted = false;
+        const hideNavHint = () => {
+            if (!hasInteracted) {
+                hasInteracted = true;
+                document.querySelector('.nav-hint').style.opacity = '0';
+                setTimeout(() => {
+                    document.querySelector('.nav-hint').style.display = 'none';
+                }, 500);
+            }
+        };
+
+        window.addEventListener('scroll', hideNavHint);
+        document.addEventListener('keydown', hideNavHint);
+        
+        // Auto-reload when file changes
+        let lastModified = 1750967036501;
+        setInterval(() => {
+            fetch('/check-update?t=' + Date.now())
+                .then(res => res.json())
+                .then(data => {
+                    if (data.modified > lastModified) {
+                        lastModified = data.modified;
+                        const indicator = document.querySelector('.reload-indicator');
+                        indicator.classList.add('show');
+                        setTimeout(() => {
+                            location.reload();
+                        }, 500);
+                    }
+                })
+                .catch(() => {}); // Ignore errors when not using the server
+        }, 1000);
+    </script>
+</body>
+</html>

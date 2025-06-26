@@ -1,0 +1,10 @@
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Main rectangle (100% - all packages) -->
+  <rect x="0" y="0" width="800" height="600" fill="#F5F5FF" stroke="#1D1D28" stroke-width="0.5"/>
+  
+  <!-- 1% rectangle (top left corner) -->
+  <rect x="0" y="0" width="80" height="60" fill="#BBBBFF" stroke="#1D1D28" stroke-width="0.5"/>
+  
+  <!-- 1% of 1% rectangle (0.01% - inside the 1% rectangle) -->
+  <rect x="0" y="0" width="8" height="6" fill="#45E56E" stroke="#1D1D28" stroke-width="0.5"/>
+</svg>
