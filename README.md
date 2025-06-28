@@ -4,7 +4,7 @@
 
 A presentation by Andrew Nesbitt for CHAOSScon North America 2025, Denver, CO.
 
-📄 **[View PDF](./slides.pdf)** | 🖥️ **[View Slides](https://andrew.github.io/state-of-oss-funding/)**
+📄 **[View PDF](./slides.pdf)** 
 
 ## Abstract
 
