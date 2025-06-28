@@ -385,6 +385,87 @@
                 padding-left: 2.5rem;
             }
         }
+        
+        @media print {
+            /* Hide navigation hints and interactive elements */
+            .nav-hint,
+            .reload-indicator {
+                display: none !important;
+            }
+            
+            /* Ensure each slide takes exactly one page */
+            .slide {
+                page-break-after: always;
+                page-break-inside: avoid;
+                height: 100vh;
+                width: 100vw;
+                margin: 0;
+                padding: 3rem 2rem;
+            }
+            
+            /* Remove hover effects and transitions */
+            * {
+                transition: none !important;
+                animation: none !important;
+            }
+            
+            /* Ensure backgrounds print properly */
+            body,
+            .slide {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                color-adjust: exact;
+            }
+            
+            /* Fix stat card hover states */
+            .stat-card:hover {
+                transform: none !important;
+                box-shadow: none !important;
+            }
+            
+            /* Fix list item hover states */
+            li:hover {
+                transform: none !important;
+                background: inherit !important;
+            }
+            
+            /* Slightly reduce list font size for better fit */
+            li {
+                font-size: 0.9rem;
+                padding: 0.5rem 0.5rem 0.5rem 2rem;
+                margin: 0.5rem 0;
+            }
+            
+            /* Reduce heading sizes for print */
+            h1 {
+                font-size: clamp(2rem, 5vw, 3.2rem);
+            }
+            
+            h2 {
+                font-size: clamp(1.6rem, 4vw, 2.4rem);
+            }
+            
+            h3 {
+                font-size: clamp(1rem, 2.5vw, 1.5rem);
+            }
+            
+            /* Hide slide numbers and logos */
+            .slide-number,
+            .slide-logo {
+                display: none !important;
+            }
+            
+            /* Remove any scrollbars */
+            body {
+                overflow: hidden !important;
+            }
+            
+            /* Ensure pop quiz warning prints with background */
+            .pop-quiz-warning {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1341,7 +1422,7 @@ buy_me_a_coffee: andrewnez</code></pre>
         document.addEventListener('keydown', hideNavHint);
         
         // Auto-reload when file changes
-        let lastModified = 1750967752520;
+        let lastModified = 1751095564526;
         setInterval(() => {
             fetch('/check-update?t=' + Date.now())
                 .then(res => res.json())

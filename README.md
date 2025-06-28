@@ -4,6 +4,8 @@
 
 A presentation by Andrew Nesbitt for CHAOSScon North America 2025, Denver, CO.
 
+📄 **[View PDF](./slides.pdf)** | 🖥️ **[View Slides](https://andrew.github.io/state-of-oss-funding/)**
+
 ## Abstract
 
 This talk explores the current state of funding in open source software, analyzing data from over 11 million packages across various ecosystems. Using the ecosyste.ms dataset, we examine:
@@ -74,6 +76,41 @@ Then open `index.html` in your browser.
 - **Space** for next slide
 - **F** to toggle fullscreen
 - **Home/End** to jump to first/last slide
+
+### Exporting to PDF
+
+#### Option 1: Browser Print (Recommended)
+1. Open `index.html` in Chrome or Edge
+2. Press `Cmd+P` (Mac) or `Ctrl+P` (Windows/Linux)
+3. Change settings:
+   - Destination: "Save as PDF"
+   - Layout: Portrait
+   - Margins: None
+   - Scale: Default (100%)
+   - Options: Check "Background graphics"
+4. Click "Save"
+
+#### Option 2: Automated Export
+```bash
+# Using Puppeteer (requires Node.js)
+npm install -g puppeteer-cli
+puppeteer print index.html slides.pdf --format A4 --margin-top 0 --margin-bottom 0 --margin-left 0 --margin-right 0
+
+# Using headless Chrome directly
+google-chrome --headless --disable-gpu --print-to-pdf=slides.pdf index.html
+
+# On macOS with Chrome installed
+/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --headless --print-to-pdf=slides.pdf index.html
+```
+
+#### Option 3: Decktape (Best for presentations)
+```bash
+# Install decktape
+npm install -g decktape
+
+# Export with automatic slide detection
+decktape generic --slides 1 index.html slides.pdf
+```
 
 ## License
 
