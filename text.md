@@ -2,9 +2,7 @@
 
 # The State of OSS Funding data: Insights from ecosyste.ms
 
-CHAOSScon North America 2025
-
-Denver, CO
+CHAOSS Funding Impact Measurement Working Group
 
 # Pop Quiz Warning
 
@@ -24,13 +22,13 @@ There will be a pop quiz at the end of this talk, pay close attention!
 
 # ecosyste.ms stats
 
-Packages: 11.4M
-Versions: 132M
-Downloads: 2.0T
+Packages: 12.1M
+Versions: 141M
+Downloads: 2.5T
 
-Maintainers: 1.7M
-Repositories: 262M
-Dependencies: 22B
+Maintainers: 1.9M
+Repositories: 287M
+Dependencies: 24B
 
 # Funding in Open Source
 
@@ -84,8 +82,8 @@ I've been mining the ecosyste.ms datasets for funding links in open source packa
 
 # Funding links in all packages
 
-Packages: 376,892
-Percent: 3.26%
+Packages: 435,289
+Percent: 3.59%
 
 # Most Popular Funding Domains
 
@@ -103,17 +101,18 @@ Percent: 3.26%
 
 # Top Ecosystems by Number of Funded Packages
 
-- [npmjs.org](https://npmjs.org) — 150,926 funded packages (3.0%)
-- [pypi.org](https://pypi.org) — 49,172 funded packages (7.07%)
-- [proxy.golang.org](https://proxy.golang.org) — 40,169 funded packages (2.11%)
-- [packagist.org](https://packagist.org) — 29,776 funded packages (6.49%)
-- [repo1.maven.org](https://repo1.maven.org) — 25,560 funded packages (4.88%)
-- [nuget.org](https://nuget.org) — 18,964 funded packages (2.61%)
-- [crates.io](https://crates.io) — 18,899 funded packages (9.74%)
-- [rubygems.org](https://rubygems.org) — 7,068 funded packages (3.56%)
-- [bower.io](https://bower.io) — 3,143 funded packages (4.48%)
-- [github actions](https://github.com/features/actions) — 2,946 funded packages (9.22%)
-- [pub.dev](https://pub.dev) — 2,803 funded packages (4.24%)
+- [npmjs.org](https://npmjs.org) — 158,505 funded packages (3.05%)
+- [proxy.golang.org](https://proxy.golang.org) — 52,523 funded packages (2.66%)
+- [pypi.org](https://pypi.org) — 52,265 funded packages (7.04%)
+- [repo1.maven.org](https://repo1.maven.org) — 38,330 funded packages (6.85%)
+- [packagist.org](https://packagist.org) — 31,153 funded packages (6.62%)
+- [nuget.org](https://nuget.org) — 26,065 funded packages (3.48%)
+- [crates.io](https://crates.io) — 20,164 funded packages (9.54%)
+- [rubygems.org](https://rubygems.org) — 7,210 funded packages (3.6%)
+- [pub.dev](https://pub.dev) — 3,508 funded packages (4.95%)
+- [bower.io](https://bower.io) — 3,362 funded packages (4.79%)
+- [alpine](https://alpine) — 2,737 funded packages (7.29%)
+- [github actions](https://github.com/features/actions) — 2,255 funded packages (6.99%)
 
 # Critical Packages
 
@@ -141,8 +140,8 @@ That means only <b>0.0865%</b> of all packages are critical.
 
 # Critical Package Funding Links
 
-Packages: 2,661
-Percent: 27.2%
+Packages: 2749
+Percent: 28.2%
 
 # Average Funding Links per Critical Packages
 
@@ -400,7 +399,7 @@ Organisations: 359
 - <b>Concentration effect</b>: Well-funded maintainers can afford to maintain more projects, while unfunded maintainers struggle with even one
 - <b>Potential gamification</b>: Some maintainers might strategically break packages into smaller dependencies to increase their critical package count
 
-# Things that didn't fit in a 15 min talk
+# Things that didn't fit into this talk
 
 - Foundations
 - Grants
@@ -433,7 +432,7 @@ How many times was sindresorhus mentioned in the talk?
 - https://opencollective.ecosyste.ms
 - https://sponsors.ecosyste.ms
 
-# We won't have time for questions!
+# Questions!
 
 - Web: https://ecosyste.ms
 - Email: hello@ecosyste.ms
