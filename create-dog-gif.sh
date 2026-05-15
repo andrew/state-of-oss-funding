@@ -17,7 +17,7 @@ for img in dogs/*; do
         echo "Processing $img -> $output_name"
         
         # First auto-orient the image based on EXIF data
-        convert "$img" -auto-orient "$temp_oriented"
+        magick "$img" -auto-orient "$temp_oriented"
         
         # Get dimensions of the auto-oriented image
         width=$(identify -format "%w" "$temp_oriented")
@@ -35,7 +35,7 @@ for img in dogs/*; do
         fi
         
         # Crop to square and resize to consistent size (500x500) with high quality
-        convert "$temp_oriented" -crop ${size}x${size}+${offset_x}+${offset_y} -resize 500x500 -quality 100 "$output_name"
+        magick "$temp_oriented" -crop ${size}x${size}+${offset_x}+${offset_y} -resize 500x500 -quality 100 "$output_name"
         
         # Remove temporary file
         rm "$temp_oriented"
@@ -45,7 +45,7 @@ done
 # Create the GIF with higher quality
 echo "Creating dogs.gif..."
 # Use shorter delay (40 = 0.4 seconds) for faster animation
-convert -delay 40 -loop 0 dogs_cropped/*.jpg -layers OptimizeFrame dogs.gif
+magick -delay 40 -loop 0 dogs_cropped/*.jpg -layers OptimizeFrame dogs.gif
 
 echo "Done! Created dogs.gif"
 echo "Cleaning up temporary files..."
